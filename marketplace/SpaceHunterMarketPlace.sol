@@ -183,103 +183,6 @@ interface IERC721Upgradeable is IERC165Upgradeable {
             
 ////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: GPL-3.0
 pragma solidity 0.8.9;
-/**
- * @dev Interface of the BEP standard.
- */
-interface IBEP20 {
-  /**
-   * @dev Returns the amount of tokens in existence.
-   */
-  function totalSupply() external view returns (uint256);
-
-  /**
-   * @dev Returns the token decimals.
-   */
-  function decimals() external view returns (uint8);
-
-  /**
-   * @dev Returns the token symbol.
-   */
-  function symbol() external view returns (string memory);
-
-  /**
-  * @dev Returns the token name.
-  */
-  function name() external view returns (string memory);
-
-  /**
-   * @dev Returns the amount of tokens owned by `account`.
-   */
-  function balanceOf(address account) external view returns (uint256);
-
-  /**
-   * @dev Moves `amount` tokens from the caller's account to `recipient`.
-   *
-   * Returns a boolean value indicating whether the operation succeeded.
-   *
-   * Emits a {Transfer} event.
-   */
-  function transfer(address recipient, uint256 amount) external returns (bool);
-
-  /**
-   * @dev Returns the remaining number of tokens that `spender` will be
-   * allowed to spend on behalf of `owner` through {transferFrom}. This is
-   * zero by default.
-   *
-   * This value changes when {approve} or {transferFrom} are called.
-   */
-  function allowance(address _owner, address spender) external view returns (uint256);
-
-  /**
-   * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
-   *
-   * Returns a boolean value indicating whether the operation succeeded.
-   *
-   * ////IMPORTANT: Beware that changing an allowance with this method brings the risk
-   * that someone may use both the old and the new allowance by unfortunate
-   * transaction ordering. One possible solution to mitigate this race
-   * condition is to first reduce the spender's allowance to 0 and set the
-   * desired value afterwards:
-   * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
-   *
-   * Emits an {Approval} event.
-   */
-  function approve(address spender, uint256 amount) external returns (bool);
-
-  /**
-   * @dev Moves `amount` tokens from `sender` to `recipient` using the
-   * allowance mechanism. `amount` is then deducted from the caller's
-   * allowance.
-   *
-   * Returns a boolean value indicating whether the operation succeeded.
-   *
-   * Emits a {Transfer} event.
-   */
-  function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
-
-  /**
-   * @dev Emitted when `value` tokens are moved from one account (`from`) to
-   * another (`to`).
-   *
-   * Note that `value` may be zero.
-   */
-  event Transfer(address indexed from, address indexed to, uint256 value);
-
-  /**
-   * @dev Emitted when the allowance of a `spender` for an `owner` is set by
-   * a call to {approve}. `value` is the new allowance.
-   */
-  event Approval(address indexed owner, address indexed spender, uint256 value);
-}
-
-
-
-/** 
- *  SourceUnit: /Users/brianpc/workplace/contracts/marketplace/SpaceHunterMarketPlace.sol
-*/
-            
-////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: GPL-3.0
-pragma solidity 0.8.9;
 
 /**
  * @title IRegistry
@@ -1099,6 +1002,185 @@ contract NFTsTransferProxy {
 
 
 
+////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: GPL-3.0
+pragma solidity 0.8.9;
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20Upgradeable {
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `recipient`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address recipient, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `sender` to `recipient` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address sender,
+        address recipient,
+        uint256 amount
+    ) external returns (bool);
+
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+}
+
+
+////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: GPL-3.0
+pragma solidity 0.8.9;
+
+/**
+ * @title SafeERC20
+ * @dev Wrappers around ERC20 operations that throw on failure (when the token
+ * contract returns false). Tokens that return no value (and instead revert or
+ * throw on failure) are also supported, non-reverting calls are assumed to be
+ * successful.
+ * To use this library you can add a `using SafeERC20 for IERC20;` statement to your contract,
+ * which allows you to call the safe operations as `token.safeTransfer(...)`, etc.
+ */
+library SafeERC20Upgradeable {
+    using AddressUpgradeable for address;
+
+    function safeTransfer(
+        IERC20Upgradeable token,
+        address to,
+        uint256 value
+    ) internal {
+        _callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, value));
+    }
+
+    function safeTransferFrom(
+        IERC20Upgradeable token,
+        address from,
+        address to,
+        uint256 value
+    ) internal {
+        _callOptionalReturn(token, abi.encodeWithSelector(token.transferFrom.selector, from, to, value));
+    }
+
+    /**
+     * @dev Deprecated. This function has issues similar to the ones found in
+     * {IERC20-approve}, and its usage is discouraged.
+     *
+     * Whenever possible, use {safeIncreaseAllowance} and
+     * {safeDecreaseAllowance} instead.
+     */
+    function safeApprove(
+        IERC20Upgradeable token,
+        address spender,
+        uint256 value
+    ) internal {
+        // safeApprove should only be called when setting an initial allowance,
+        // or when resetting it to zero. To increase and decrease it, use
+        // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'
+        require(
+            (value == 0) || (token.allowance(address(this), spender) == 0),
+            "SafeERC20: approve from non-zero to non-zero allowance"
+        );
+        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, value));
+    }
+
+    function safeIncreaseAllowance(
+        IERC20Upgradeable token,
+        address spender,
+        uint256 value
+    ) internal {
+        uint256 newAllowance = token.allowance(address(this), spender) + value;
+        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));
+    }
+
+    function safeDecreaseAllowance(
+        IERC20Upgradeable token,
+        address spender,
+        uint256 value
+    ) internal {
+        unchecked {
+            uint256 oldAllowance = token.allowance(address(this), spender);
+            require(oldAllowance >= value, "SafeERC20: decreased allowance below zero");
+            uint256 newAllowance = oldAllowance - value;
+            _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));
+        }
+    }
+
+    /**
+     * @dev Imitates a Solidity high-level call (i.e. a regular function call to a contract), relaxing the requirement
+     * on the return value: the return value is optional (but if data is returned, it must not be false).
+     * @param token The token targeted by the call.
+     * @param data The call data (encoded using abi.encode or one of its variants).
+     */
+    function _callOptionalReturn(IERC20Upgradeable token, bytes memory data) private {
+        // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since
+        // we're implementing it ourselves. We use {Address.functionCall} to perform this call, which verifies that
+        // the target address contains contract code and also asserts for success in the low-level call.
+
+        bytes memory returndata = address(token).functionCall(data, "SafeERC20: low-level call failed");
+        if (returndata.length > 0) {
+            // Return data is optional
+            require(abi.decode(returndata, (bool)), "SafeERC20: ERC20 operation did not succeed");
+        }
+    }
+}
+
+
+
 /** 
  *  SourceUnit: /Users/brianpc/workplace/contracts/marketplace/SpaceHunterMarketPlace.sol
 */
@@ -1106,9 +1188,10 @@ contract NFTsTransferProxy {
 ////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: GPL-3.0
 pragma solidity 0.8.9;
 
-////import "../bep20/IBEP20.sol";
-
 contract TokenTransferProxy {
+
+    using SafeERC20Upgradeable for IERC20Upgradeable;
+
     /**
      * Call BEP20 `transferFrom`
      *
@@ -1120,9 +1203,8 @@ contract TokenTransferProxy {
      */
     function transferFrom(address token, address from, address to, uint amount)
         public
-        returns (bool)
     {
-        return IBEP20(token).transferFrom(from, to, amount);
+        IERC20Upgradeable(token).safeTransferFrom(from, to, amount);
     }
 }
 
@@ -1765,259 +1847,6 @@ library EnumerableSet {
 */
             
 ////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: GPL-3.0
-pragma solidity 0.8.9;
-
-// CAUTION
-// This version of SafeMath should only be used with Solidity 0.8 or later,
-// because it relies on the compiler's built in overflow checks.
-
-/**
- * @dev Wrappers over Solidity's arithmetic operations.
- *
- * NOTE: `SafeMath` is no longer needed starting with Solidity 0.8. The compiler
- * now has built in overflow checking.
- */
-library SafeMath {
-    /**
-     * @dev Returns the addition of two unsigned integers, with an overflow flag.
-     *
-     * _Available since v3.4._
-     */
-    function tryAdd(uint256 a, uint256 b)
-        internal
-        pure
-        returns (bool, uint256)
-    {
-        unchecked {
-            uint256 c = a + b;
-            if (c < a) return (false, 0);
-            return (true, c);
-        }
-    }
-
-    /**
-     * @dev Returns the substraction of two unsigned integers, with an overflow flag.
-     *
-     * _Available since v3.4._
-     */
-    function trySub(uint256 a, uint256 b)
-        internal
-        pure
-        returns (bool, uint256)
-    {
-        unchecked {
-            if (b > a) return (false, 0);
-            return (true, a - b);
-        }
-    }
-
-    /**
-     * @dev Returns the multiplication of two unsigned integers, with an overflow flag.
-     *
-     * _Available since v3.4._
-     */
-    function tryMul(uint256 a, uint256 b)
-        internal
-        pure
-        returns (bool, uint256)
-    {
-        unchecked {
-            // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
-            // benefit is lost if 'b' is also tested.
-            // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522
-            if (a == 0) return (true, 0);
-            uint256 c = a * b;
-            if (c / a != b) return (false, 0);
-            return (true, c);
-        }
-    }
-
-    /**
-     * @dev Returns the division of two unsigned integers, with a division by zero flag.
-     *
-     * _Available since v3.4._
-     */
-    function tryDiv(uint256 a, uint256 b)
-        internal
-        pure
-        returns (bool, uint256)
-    {
-        unchecked {
-            if (b == 0) return (false, 0);
-            return (true, a / b);
-        }
-    }
-
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers, with a division by zero flag.
-     *
-     * _Available since v3.4._
-     */
-    function tryMod(uint256 a, uint256 b)
-        internal
-        pure
-        returns (bool, uint256)
-    {
-        unchecked {
-            if (b == 0) return (false, 0);
-            return (true, a % b);
-        }
-    }
-
-    /**
-     * @dev Returns the addition of two unsigned integers, reverting on
-     * overflow.
-     *
-     * Counterpart to Solidity's `+` operator.
-     *
-     * Requirements:
-     *
-     * - Addition cannot overflow.
-     */
-    function add(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a + b;
-    }
-
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting on
-     * overflow (when the result is negative).
-     *
-     * Counterpart to Solidity's `-` operator.
-     *
-     * Requirements:
-     *
-     * - Subtraction cannot overflow.
-     */
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a - b;
-    }
-
-    /**
-     * @dev Returns the multiplication of two unsigned integers, reverting on
-     * overflow.
-     *
-     * Counterpart to Solidity's `*` operator.
-     *
-     * Requirements:
-     *
-     * - Multiplication cannot overflow.
-     */
-    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a * b;
-    }
-
-    /**
-     * @dev Returns the integer division of two unsigned integers, reverting on
-     * division by zero. The result is rounded towards zero.
-     *
-     * Counterpart to Solidity's `/` operator.
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
-    function div(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a / b;
-    }
-
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
-     * reverting when dividing by zero.
-     *
-     * Counterpart to Solidity's `%` operator. This function uses a `revert`
-     * opcode (which leaves remaining gas untouched) while Solidity uses an
-     * invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
-    function mod(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a % b;
-    }
-
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on
-     * overflow (when the result is negative).
-     *
-     * CAUTION: This function is deprecated because it requires allocating memory for the error
-     * message unnecessarily. For custom revert reasons use {trySub}.
-     *
-     * Counterpart to Solidity's `-` operator.
-     *
-     * Requirements:
-     *
-     * - Subtraction cannot overflow.
-     */
-    function sub(
-        uint256 a,
-        uint256 b,
-        string memory errorMessage
-    ) internal pure returns (uint256) {
-        unchecked {
-            require(b <= a, errorMessage);
-            return a - b;
-        }
-    }
-
-    /**
-     * @dev Returns the integer division of two unsigned integers, reverting with custom message on
-     * division by zero. The result is rounded towards zero.
-     *
-     * Counterpart to Solidity's `/` operator. Note: this function uses a
-     * `revert` opcode (which leaves remaining gas untouched) while Solidity
-     * uses an invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
-    function div(
-        uint256 a,
-        uint256 b,
-        string memory errorMessage
-    ) internal pure returns (uint256) {
-        unchecked {
-            require(b > 0, errorMessage);
-            return a / b;
-        }
-    }
-
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
-     * reverting with custom message when dividing by zero.
-     *
-     * CAUTION: This function is deprecated because it requires allocating memory for the error
-     * message unnecessarily. For custom revert reasons use {tryMod}.
-     *
-     * Counterpart to Solidity's `%` operator. This function uses a `revert`
-     * opcode (which leaves remaining gas untouched) while Solidity uses an
-     * invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
-    function mod(
-        uint256 a,
-        uint256 b,
-        string memory errorMessage
-    ) internal pure returns (uint256) {
-        unchecked {
-            require(b > 0, errorMessage);
-            return a % b;
-        }
-    }
-}
-
-
-
-
-/** 
- *  SourceUnit: /Users/brianpc/workplace/contracts/marketplace/SpaceHunterMarketPlace.sol
-*/
-            
-////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: GPL-3.0
 pragma solidity ^0.8.9;
 
 contract ReentrancyGuarded {
@@ -2083,6 +1912,369 @@ contract ProxyRegistry is IProxyRegistry {
 }
 
 
+////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: GPL-3.0
+pragma solidity 0.8.9;
+
+/**
+ * @dev Contract module which acts as a timelocked controller. When set as the
+ * owner of an `Ownable` smart contract, it enforces a timelock on all
+ * `onlyOwner` maintenance operations. This gives time for users of the
+ * controlled contract to exit before a potentially dangerous maintenance
+ * operation is applied.
+ *
+ * By default, this contract is self administered, meaning administration tasks
+ * have to go through the timelock process. The proposer (resp executor) role
+ * is in charge of proposing (resp executing) operations. A common use case is
+ * to position this {TimelockController} as the owner of a smart contract, with
+ * a multisig or a DAO as the sole proposer.
+ *
+ * _Available since v3.3._
+ */
+contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeable {
+    bytes32 public constant TIMELOCK_ADMIN_ROLE = keccak256("TIMELOCK_ADMIN_ROLE");
+    bytes32 public constant PROPOSER_ROLE = keccak256("PROPOSER_ROLE");
+    bytes32 public constant EXECUTOR_ROLE = keccak256("EXECUTOR_ROLE");
+    uint256 internal constant _DONE_TIMESTAMP = uint256(1);
+
+    mapping(bytes32 => uint256) private _timestamps;
+    uint256 private _minDelay;
+
+    /**
+     * @dev Emitted when a call is scheduled as part of operation `id`.
+     */
+    event CallScheduled(
+        bytes32 indexed id,
+        uint256 indexed index,
+        address target,
+        uint256 value,
+        bytes data,
+        bytes32 predecessor,
+        uint256 delay
+    );
+
+    /**
+     * @dev Emitted when a call is performed as part of operation `id`.
+     */
+    event CallExecuted(bytes32 indexed id, uint256 indexed index, address target, uint256 value, bytes data);
+
+    /**
+     * @dev Emitted when operation `id` is cancelled.
+     */
+    event Cancelled(bytes32 indexed id);
+
+    /**
+     * @dev Emitted when the minimum delay for future operations is modified.
+     */
+    event MinDelayChange(uint256 oldDuration, uint256 newDuration);
+
+    /**
+     * @dev Initializes the contract with a given `minDelay`.
+     */
+    function __TimelockController_init(
+        uint256 minDelay,
+        address[] memory proposers,
+        address[] memory executors
+    ) internal onlyInitializing {
+        __Context_init_unchained();
+        __ERC165_init_unchained();
+        __AccessControl_init_unchained();
+        __TimelockController_init_unchained(minDelay, proposers, executors);
+    }
+
+    function __TimelockController_init_unchained(
+        uint256 minDelay,
+        address[] memory proposers,
+        address[] memory executors
+    ) internal onlyInitializing {
+        _setRoleAdmin(TIMELOCK_ADMIN_ROLE, TIMELOCK_ADMIN_ROLE);
+        _setRoleAdmin(PROPOSER_ROLE, TIMELOCK_ADMIN_ROLE);
+        _setRoleAdmin(EXECUTOR_ROLE, TIMELOCK_ADMIN_ROLE);
+
+        // deployer + self administration
+        _setupRole(TIMELOCK_ADMIN_ROLE, _msgSender());
+        _setupRole(TIMELOCK_ADMIN_ROLE, address(this));
+
+        // register proposers
+        for (uint256 i = 0; i < proposers.length; ++i) {
+            _setupRole(PROPOSER_ROLE, proposers[i]);
+        }
+
+        // register executors
+        for (uint256 i = 0; i < executors.length; ++i) {
+            _setupRole(EXECUTOR_ROLE, executors[i]);
+        }
+
+        _minDelay = minDelay;
+        emit MinDelayChange(0, minDelay);
+    }
+
+    /**
+     * @dev Modifier to make a function callable only by a certain role. In
+     * addition to checking the sender's role, `address(0)` 's role is also
+     * considered. Granting a role to `address(0)` is equivalent to enabling
+     * this role for everyone.
+     */
+    modifier onlyRoleOrOpenRole(bytes32 role) {
+        if (!hasRole(role, address(0))) {
+            _checkRole(role, _msgSender());
+        }
+        _;
+    }
+
+    /**
+     * @dev Contract might receive/hold ETH as part of the maintenance process.
+     */
+    receive() external payable {}
+
+    /**
+     * @dev Returns whether an id correspond to a registered operation. This
+     * includes both Pending, Ready and Done operations.
+     */
+    function isOperation(bytes32 id) public view virtual returns (bool pending) {
+        return getTimestamp(id) > 0;
+    }
+
+    /**
+     * @dev Returns whether an operation is pending or not.
+     */
+    function isOperationPending(bytes32 id) public view virtual returns (bool pending) {
+        return getTimestamp(id) > _DONE_TIMESTAMP;
+    }
+
+    /**
+     * @dev Returns whether an operation is ready or not.
+     */
+    function isOperationReady(bytes32 id) public view virtual returns (bool ready) {
+        uint256 timestamp = getTimestamp(id);
+        return timestamp > _DONE_TIMESTAMP && timestamp <= block.timestamp;
+    }
+
+    /**
+     * @dev Returns whether an operation is done or not.
+     */
+    function isOperationDone(bytes32 id) public view virtual returns (bool done) {
+        return getTimestamp(id) == _DONE_TIMESTAMP;
+    }
+
+    /**
+     * @dev Returns the timestamp at with an operation becomes ready (0 for
+     * unset operations, 1 for done operations).
+     */
+    function getTimestamp(bytes32 id) public view virtual returns (uint256 timestamp) {
+        return _timestamps[id];
+    }
+
+    /**
+     * @dev Returns the minimum delay for an operation to become valid.
+     *
+     * This value can be changed by executing an operation that calls `updateDelay`.
+     */
+    function getMinDelay() public view virtual returns (uint256 duration) {
+        return _minDelay;
+    }
+
+    /**
+     * @dev Returns the identifier of an operation containing a single
+     * transaction.
+     */
+    function hashOperation(
+        address target,
+        uint256 value,
+        bytes calldata data,
+        bytes32 predecessor,
+        bytes32 salt
+    ) public pure virtual returns (bytes32 hash) {
+        return keccak256(abi.encode(target, value, data, predecessor, salt));
+    }
+
+    /**
+     * @dev Returns the identifier of an operation containing a batch of
+     * transactions.
+     */
+    function hashOperationBatch(
+        address[] calldata targets,
+        uint256[] calldata values,
+        bytes[] calldata datas,
+        bytes32 predecessor,
+        bytes32 salt
+    ) public pure virtual returns (bytes32 hash) {
+        return keccak256(abi.encode(targets, values, datas, predecessor, salt));
+    }
+
+    /**
+     * @dev Schedule an operation containing a single transaction.
+     *
+     * Emits a {CallScheduled} event.
+     *
+     * Requirements:
+     *
+     * - the caller must have the 'proposer' role.
+     */
+    function schedule(
+        address target,
+        uint256 value,
+        bytes calldata data,
+        bytes32 predecessor,
+        bytes32 salt,
+        uint256 delay
+    ) public virtual onlyRole(PROPOSER_ROLE) {
+        bytes32 id = hashOperation(target, value, data, predecessor, salt);
+        _schedule(id, delay);
+        emit CallScheduled(id, 0, target, value, data, predecessor, delay);
+    }
+
+    /**
+     * @dev Schedule an operation containing a batch of transactions.
+     *
+     * Emits one {CallScheduled} event per transaction in the batch.
+     *
+     * Requirements:
+     *
+     * - the caller must have the 'proposer' role.
+     */
+    function scheduleBatch(
+        address[] calldata targets,
+        uint256[] calldata values,
+        bytes[] calldata datas,
+        bytes32 predecessor,
+        bytes32 salt,
+        uint256 delay
+    ) public virtual onlyRole(PROPOSER_ROLE) {
+        require(targets.length == values.length, "TimelockController: length mismatch");
+        require(targets.length == datas.length, "TimelockController: length mismatch");
+
+        bytes32 id = hashOperationBatch(targets, values, datas, predecessor, salt);
+        _schedule(id, delay);
+        for (uint256 i = 0; i < targets.length; ++i) {
+            emit CallScheduled(id, i, targets[i], values[i], datas[i], predecessor, delay);
+        }
+    }
+
+    /**
+     * @dev Schedule an operation that is to becomes valid after a given delay.
+     */
+    function _schedule(bytes32 id, uint256 delay) private {
+        require(!isOperation(id), "TimelockController: operation already scheduled");
+        require(delay >= getMinDelay(), "TimelockController: insufficient delay");
+        _timestamps[id] = block.timestamp + delay;
+    }
+
+    /**
+     * @dev Cancel an operation.
+     *
+     * Requirements:
+     *
+     * - the caller must have the 'proposer' role.
+     */
+    function cancel(bytes32 id) public virtual onlyRole(PROPOSER_ROLE) {
+        require(isOperationPending(id), "TimelockController: operation cannot be cancelled");
+        delete _timestamps[id];
+
+        emit Cancelled(id);
+    }
+
+    /**
+     * @dev Execute an (ready) operation containing a single transaction.
+     *
+     * Emits a {CallExecuted} event.
+     *
+     * Requirements:
+     *
+     * - the caller must have the 'executor' role.
+     */
+    function execute(
+        address target,
+        uint256 value,
+        bytes calldata data,
+        bytes32 predecessor,
+        bytes32 salt
+    ) public payable virtual onlyRoleOrOpenRole(EXECUTOR_ROLE) {
+        bytes32 id = hashOperation(target, value, data, predecessor, salt);
+        _beforeCall(id, predecessor);
+        _call(id, 0, target, value, data);
+        _afterCall(id);
+    }
+
+    /**
+     * @dev Execute an (ready) operation containing a batch of transactions.
+     *
+     * Emits one {CallExecuted} event per transaction in the batch.
+     *
+     * Requirements:
+     *
+     * - the caller must have the 'executor' role.
+     */
+    function executeBatch(
+        address[] calldata targets,
+        uint256[] calldata values,
+        bytes[] calldata datas,
+        bytes32 predecessor,
+        bytes32 salt
+    ) public payable virtual onlyRoleOrOpenRole(EXECUTOR_ROLE) {
+        require(targets.length == values.length, "TimelockController: length mismatch");
+        require(targets.length == datas.length, "TimelockController: length mismatch");
+
+        bytes32 id = hashOperationBatch(targets, values, datas, predecessor, salt);
+        _beforeCall(id, predecessor);
+        for (uint256 i = 0; i < targets.length; ++i) {
+            _call(id, i, targets[i], values[i], datas[i]);
+        }
+        _afterCall(id);
+    }
+
+    /**
+     * @dev Checks before execution of an operation's calls.
+     */
+    function _beforeCall(bytes32 id, bytes32 predecessor) private view {
+        require(isOperationReady(id), "TimelockController: operation is not ready");
+        require(predecessor == bytes32(0) || isOperationDone(predecessor), "TimelockController: missing dependency");
+    }
+
+    /**
+     * @dev Checks after execution of an operation's calls.
+     */
+    function _afterCall(bytes32 id) private {
+        require(isOperationReady(id), "TimelockController: operation is not ready");
+        _timestamps[id] = _DONE_TIMESTAMP;
+    }
+
+    /**
+     * @dev Execute an operation's call.
+     *
+     * Emits a {CallExecuted} event.
+     */
+    function _call(
+        bytes32 id,
+        uint256 index,
+        address target,
+        uint256 value,
+        bytes calldata data
+    ) private {
+        (bool success, ) = target.call{value: value}(data);
+        require(success, "TimelockController: underlying transaction reverted");
+
+        emit CallExecuted(id, index, target, value, data);
+    }
+
+    /**
+     * @dev Changes the minimum timelock duration for future operations.
+     *
+     * Emits a {MinDelayChange} event.
+     *
+     * Requirements:
+     *
+     * - the caller must be the timelock itself. This can only be achieved by scheduling and later executing
+     * an operation where the timelock is the target and the data is the ABI-encoded call to this function.
+     */
+    function updateDelay(uint256 newDelay) external virtual {
+        require(msg.sender == address(this), "TimelockController: caller must be timelock");
+        emit MinDelayChange(_minDelay, newDelay);
+        _minDelay = newDelay;
+    }
+    uint256[48] private __gap;
+}
+
+
 
 /** 
  *  SourceUnit: /Users/brianpc/workplace/contracts/marketplace/SpaceHunterMarketPlace.sol
@@ -2092,7 +2284,6 @@ contract ProxyRegistry is IProxyRegistry {
 pragma solidity 0.8.9;
 
 ////import "../utils/ReentrancyGuarded.sol";
-////import "../utils/SafeMath.sol";
 ////import "../utils/EnumerableSet.sol";
 ////import "../utils/Initializable.sol";
 ////import "../utils/AccessControlUpgradeable.sol";
@@ -2101,16 +2292,14 @@ pragma solidity 0.8.9;
 ////import "../proxy/OwnedUpgradeabilityStorage.sol";
 ////import "./TokenTransferProxy.sol";
 ////import "./NFTsTransferProxy.sol";
-////import "../bep20/IBEP20.sol";
 
 contract MarketPlaceCore is 
     OwnedUpgradeabilityStorage,
     ReentrancyGuarded, 
     Initializable, 
-    AccessControlUpgradeable, 
+    TimelockControllerUpgradeable, 
     IERC721ReceiverUpgradeable 
 {
-    using SafeMath for uint256;
     using EnumerableSet for EnumerableSet.UintSet;
     using AddressUpgradeable for address;
 
@@ -2140,14 +2329,14 @@ contract MarketPlaceCore is
     event PurchaseListing(address buyer, address seller, address listingNft, address paymentToken, uint256 tokenId, uint256 price);
 
     modifier isListed(address nft, uint256 id) {
-        require(listedTokenIDs.contains(uint256(uint160(nft)).add(id)),
+        require(listedTokenIDs.contains(uint256(uint160(nft)) + id),
             "Token ID not listed"
         );
         _;
     }
 
     modifier isNotListed(address nft, uint256 id) {
-        require(!listedTokenIDs.contains(uint256(uint160(nft)).add(id)),
+        require(!listedTokenIDs.contains(uint256(uint160(nft)) + id),
             "Token ID must not be listed"
         );
         _;
@@ -2155,39 +2344,41 @@ contract MarketPlaceCore is
 
     modifier isSeller(address nft, uint256 id) {
         require(
-            listings[uint256(uint160(nft)).add(id)].seller == _msgSender(),
+            listings[uint256(uint160(nft)) + id].seller == _msgSender(),
             "Access denied"
         );
         _;
     }
 
-    modifier onlyOwner() {
-        require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "Not admin");
+    modifier selfExecute {
+        require(_msgSender() == address(this), "Caller must be timelock");
         _;
     }
 
-    function setBuyerFee(uint256 fee) public virtual onlyOwner {
+    function setBuyerFee(uint256 fee) public virtual selfExecute {
+        require(fee < 100, "Greater or equal 100 is not allowed");
         buyerFee = fee;
     }
 
-    function setSellerFee(uint256 fee) public virtual onlyOwner {
+    function setSellerFee(uint256 fee) public virtual selfExecute {
+        require(fee < 100, "Greater or equal 100 is not allowed");
         sellerFee = fee;
     }
 
-    function setFeeRecipient(address recipient) public virtual onlyOwner {
+    function setFeeRecipient(address recipient) public virtual selfExecute {
         feeRecipient = recipient;
     }
 
-    function setMinimumPrice(uint256 amount) public virtual onlyOwner {
+    function setMinimumPrice(uint256 amount) public virtual selfExecute {
         minimumPrice = amount;
     }
 
-    function setmaintenanceMode(bool mode) public virtual onlyOwner {
+    function setmaintenanceMode(bool mode) public virtual selfExecute {
         maintenanceMode = mode;
     }
 
     function getSellerOfNftID(address nft, uint256 tokenId) public virtual view returns (address) {
-        uint256 identifier = uint256(uint160(nft)).add(tokenId);
+        uint256 identifier = uint256(uint160(nft)) + tokenId;
 
         if(!listedTokenIDs.contains(identifier)) {
             return address(0);
@@ -2214,7 +2405,7 @@ contract MarketPlaceCore is
         
         transferNft(listingNft, _msgSender(), address(this), id);
 
-        uint256 identifier = uint256(uint160(listingNft)).add(id);
+        uint256 identifier = uint256(uint160(listingNft)) + id;
         listings[identifier] = Listing(_msgSender(), paymentToken, listingNft, price, block.timestamp);
         listedTokenIDs.add(identifier);
 
@@ -2227,9 +2418,7 @@ contract MarketPlaceCore is
         isListed(nft, id)
         isSeller(nft, id)
     {
-        require (maintenanceMode == false, "Market is in maintenance mode");
-
-        uint256 identifier = uint256(uint160(nft)).add(id);
+        uint256 identifier = uint256(uint160(nft)) + id;
         Listing memory listing = listings[identifier];  
 
         IERC721Upgradeable(listing.listingNft).approve(address(nftsTransferProxy), id);      
@@ -2249,7 +2438,7 @@ contract MarketPlaceCore is
     {
         require (maintenanceMode == false, "Market is in maintenance mode");
 
-        uint256 identifier = uint256(uint160(nft)).add(id);
+        uint256 identifier = uint256(uint160(nft)) + id;
         Listing memory listing = listings[identifier];
 
         uint256 transferAmount = executeFundsTransfer(listing.paymentToken, _msgSender(), listing.seller, listing.price);
@@ -2286,7 +2475,7 @@ contract MarketPlaceCore is
         uint256 requireAmount;
 
         if(buyer == address(0)){ // Listing NFT to marketplace
-            requireAmount = price.mul(sellerFee).div(100);
+            requireAmount = price *sellerFee / 100;
 
             if (paymentToken != address(0)) {
                 transferTokens(paymentToken, seller, feeRecipient, requireAmount); 
@@ -2295,16 +2484,16 @@ contract MarketPlaceCore is
                 payable(feeRecipient).transfer(requireAmount);
             }
         } else { // Buyer make an order
-            requireAmount = price.mul(buyerFee.add(100)).div(100);
+            requireAmount = price * (buyerFee + 100) / 100;
 
             if (paymentToken != address(0)) {
-                uint256 balance = IBEP20(paymentToken).balanceOf(buyer);
+                uint256 balance = IERC20Upgradeable(paymentToken).balanceOf(buyer);
                 require(balance >= requireAmount, "Not enought coin");
-                transferTokens(paymentToken, buyer, feeRecipient, requireAmount.sub(price));
+                transferTokens(paymentToken, buyer, feeRecipient, requireAmount - price);
                 transferTokens(paymentToken, buyer, seller, price);
             } else {
                 require(msg.value >= requireAmount, "Not enought coin");
-                payable(feeRecipient).transfer(requireAmount.sub(price));
+                payable(feeRecipient).transfer(requireAmount - price);
                 payable(seller).transfer(price);
             }
         }
@@ -2324,7 +2513,7 @@ contract MarketPlaceCore is
         virtual
     {
         if (amount > 0) {
-            require(tokenTransferProxy.transferFrom(token, from, to, amount));
+            tokenTransferProxy.transferFrom(token, from, to, amount);
         }
     }
 
@@ -2375,11 +2564,13 @@ contract SpaceHunterMarketPlace is MarketPlaceCore {
         address _feeRecipient,
         uint256 _sellerFee,
         uint256 _buyerFee,
-        uint256 _minimumPrice
-
+        uint256 _minimumPrice,
+        uint256 minDelay,
+        address[] memory proposers,
+        address[] memory executors
     ) public payable initializer {
-        __AccessControl_init_unchained();
-        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        __TimelockController_init_unchained(minDelay, proposers, executors);
+        renounceRole(TIMELOCK_ADMIN_ROLE, msg.sender);
 
         tokenTransferProxy = TokenTransferProxy(_tokenTransferProxy);
         nftsTransferProxy = NFTsTransferProxy(_nftTransferProxy);

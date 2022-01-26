@@ -701,261 +701,6 @@ library SafeBEP20 {
     }
 }
 
-
-
-/** 
- *  SourceUnit: /Users/brianpc/workplace/contracts/tokens/core/TokenBase.sol
-*/
-            
-////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: GPL-3.0
-pragma solidity 0.8.9;
-
-// CAUTION
-// This version of SafeMath should only be used with Solidity 0.8 or later,
-// because it relies on the compiler's built in overflow checks.
-
-/**
- * @dev Wrappers over Solidity's arithmetic operations.
- *
- * NOTE: `SafeMath` is no longer needed starting with Solidity 0.8. The compiler
- * now has built in overflow checking.
- */
-library SafeMath {
-    /**
-     * @dev Returns the addition of two unsigned integers, with an overflow flag.
-     *
-     * _Available since v3.4._
-     */
-    function tryAdd(uint256 a, uint256 b)
-        internal
-        pure
-        returns (bool, uint256)
-    {
-        unchecked {
-            uint256 c = a + b;
-            if (c < a) return (false, 0);
-            return (true, c);
-        }
-    }
-
-    /**
-     * @dev Returns the substraction of two unsigned integers, with an overflow flag.
-     *
-     * _Available since v3.4._
-     */
-    function trySub(uint256 a, uint256 b)
-        internal
-        pure
-        returns (bool, uint256)
-    {
-        unchecked {
-            if (b > a) return (false, 0);
-            return (true, a - b);
-        }
-    }
-
-    /**
-     * @dev Returns the multiplication of two unsigned integers, with an overflow flag.
-     *
-     * _Available since v3.4._
-     */
-    function tryMul(uint256 a, uint256 b)
-        internal
-        pure
-        returns (bool, uint256)
-    {
-        unchecked {
-            // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
-            // benefit is lost if 'b' is also tested.
-            // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522
-            if (a == 0) return (true, 0);
-            uint256 c = a * b;
-            if (c / a != b) return (false, 0);
-            return (true, c);
-        }
-    }
-
-    /**
-     * @dev Returns the division of two unsigned integers, with a division by zero flag.
-     *
-     * _Available since v3.4._
-     */
-    function tryDiv(uint256 a, uint256 b)
-        internal
-        pure
-        returns (bool, uint256)
-    {
-        unchecked {
-            if (b == 0) return (false, 0);
-            return (true, a / b);
-        }
-    }
-
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers, with a division by zero flag.
-     *
-     * _Available since v3.4._
-     */
-    function tryMod(uint256 a, uint256 b)
-        internal
-        pure
-        returns (bool, uint256)
-    {
-        unchecked {
-            if (b == 0) return (false, 0);
-            return (true, a % b);
-        }
-    }
-
-    /**
-     * @dev Returns the addition of two unsigned integers, reverting on
-     * overflow.
-     *
-     * Counterpart to Solidity's `+` operator.
-     *
-     * Requirements:
-     *
-     * - Addition cannot overflow.
-     */
-    function add(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a + b;
-    }
-
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting on
-     * overflow (when the result is negative).
-     *
-     * Counterpart to Solidity's `-` operator.
-     *
-     * Requirements:
-     *
-     * - Subtraction cannot overflow.
-     */
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a - b;
-    }
-
-    /**
-     * @dev Returns the multiplication of two unsigned integers, reverting on
-     * overflow.
-     *
-     * Counterpart to Solidity's `*` operator.
-     *
-     * Requirements:
-     *
-     * - Multiplication cannot overflow.
-     */
-    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a * b;
-    }
-
-    /**
-     * @dev Returns the integer division of two unsigned integers, reverting on
-     * division by zero. The result is rounded towards zero.
-     *
-     * Counterpart to Solidity's `/` operator.
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
-    function div(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a / b;
-    }
-
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
-     * reverting when dividing by zero.
-     *
-     * Counterpart to Solidity's `%` operator. This function uses a `revert`
-     * opcode (which leaves remaining gas untouched) while Solidity uses an
-     * invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
-    function mod(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a % b;
-    }
-
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on
-     * overflow (when the result is negative).
-     *
-     * CAUTION: This function is deprecated because it requires allocating memory for the error
-     * message unnecessarily. For custom revert reasons use {trySub}.
-     *
-     * Counterpart to Solidity's `-` operator.
-     *
-     * Requirements:
-     *
-     * - Subtraction cannot overflow.
-     */
-    function sub(
-        uint256 a,
-        uint256 b,
-        string memory errorMessage
-    ) internal pure returns (uint256) {
-        unchecked {
-            require(b <= a, errorMessage);
-            return a - b;
-        }
-    }
-
-    /**
-     * @dev Returns the integer division of two unsigned integers, reverting with custom message on
-     * division by zero. The result is rounded towards zero.
-     *
-     * Counterpart to Solidity's `/` operator. Note: this function uses a
-     * `revert` opcode (which leaves remaining gas untouched) while Solidity
-     * uses an invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
-    function div(
-        uint256 a,
-        uint256 b,
-        string memory errorMessage
-    ) internal pure returns (uint256) {
-        unchecked {
-            require(b > 0, errorMessage);
-            return a / b;
-        }
-    }
-
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
-     * reverting with custom message when dividing by zero.
-     *
-     * CAUTION: This function is deprecated because it requires allocating memory for the error
-     * message unnecessarily. For custom revert reasons use {tryMod}.
-     *
-     * Counterpart to Solidity's `%` operator. This function uses a `revert`
-     * opcode (which leaves remaining gas untouched) while Solidity uses an
-     * invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
-    function mod(
-        uint256 a,
-        uint256 b,
-        string memory errorMessage
-    ) internal pure returns (uint256) {
-        unchecked {
-            require(b > 0, errorMessage);
-            return a % b;
-        }
-    }
-}
-
-
-
-
 /** 
  *  SourceUnit: /Users/brianpc/workplace/contracts/tokens/core/TokenBase.sol
 */
@@ -1599,6 +1344,359 @@ contract BEP20 is Context, IBEP20, IBEP20Metadata {
     ) internal virtual {}
 }
 
+
+
+////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: GPL-3.0
+pragma solidity 0.8.9;
+
+/**
+ * @dev Contract module which acts as a timelocked controller. When set as the
+ * owner of an `Ownable` smart contract, it enforces a timelock on all
+ * `onlyOwner` maintenance operations. This gives time for users of the
+ * controlled contract to exit before a potentially dangerous maintenance
+ * operation is applied.
+ *
+ * By default, this contract is self administered, meaning administration tasks
+ * have to go through the timelock process. The proposer (resp executor) role
+ * is in charge of proposing (resp executing) operations. A common use case is
+ * to position this {TimelockController} as the owner of a smart contract, with
+ * a multisig or a DAO as the sole proposer.
+ *
+ * _Available since v3.3._
+ */
+contract TimelockController is AccessControl {
+    bytes32 public constant TIMELOCK_ADMIN_ROLE = keccak256("TIMELOCK_ADMIN_ROLE");
+    bytes32 public constant PROPOSER_ROLE = keccak256("PROPOSER_ROLE");
+    bytes32 public constant EXECUTOR_ROLE = keccak256("EXECUTOR_ROLE");
+    uint256 internal constant _DONE_TIMESTAMP = uint256(1);
+
+    mapping(bytes32 => uint256) private _timestamps;
+    uint256 private _minDelay;
+
+    /**
+     * @dev Emitted when a call is scheduled as part of operation `id`.
+     */
+    event CallScheduled(
+        bytes32 indexed id,
+        uint256 indexed index,
+        address target,
+        uint256 value,
+        bytes data,
+        bytes32 predecessor,
+        uint256 delay
+    );
+
+    /**
+     * @dev Emitted when a call is performed as part of operation `id`.
+     */
+    event CallExecuted(bytes32 indexed id, uint256 indexed index, address target, uint256 value, bytes data);
+
+    /**
+     * @dev Emitted when operation `id` is cancelled.
+     */
+    event Cancelled(bytes32 indexed id);
+
+    /**
+     * @dev Emitted when the minimum delay for future operations is modified.
+     */
+    event MinDelayChange(uint256 oldDuration, uint256 newDuration);
+
+    /**
+     * @dev Initializes the contract with a given `minDelay`.
+     */
+    constructor(
+        uint256 minDelay,
+        address[] memory proposers,
+        address[] memory executors
+    ) {
+        _setRoleAdmin(TIMELOCK_ADMIN_ROLE, TIMELOCK_ADMIN_ROLE);
+        _setRoleAdmin(PROPOSER_ROLE, TIMELOCK_ADMIN_ROLE);
+        _setRoleAdmin(EXECUTOR_ROLE, TIMELOCK_ADMIN_ROLE);
+
+        // deployer + self administration
+        _setupRole(TIMELOCK_ADMIN_ROLE, _msgSender());
+        _setupRole(TIMELOCK_ADMIN_ROLE, address(this));
+
+        // register proposers
+        for (uint256 i = 0; i < proposers.length; ++i) {
+            _setupRole(PROPOSER_ROLE, proposers[i]);
+        }
+
+        // register executors
+        for (uint256 i = 0; i < executors.length; ++i) {
+            _setupRole(EXECUTOR_ROLE, executors[i]);
+        }
+
+        _minDelay = minDelay;
+        emit MinDelayChange(0, minDelay);
+    }
+
+    /**
+     * @dev Modifier to make a function callable only by a certain role. In
+     * addition to checking the sender's role, `address(0)` 's role is also
+     * considered. Granting a role to `address(0)` is equivalent to enabling
+     * this role for everyone.
+     */
+    modifier onlyRoleOrOpenRole(bytes32 role) {
+        if (!hasRole(role, address(0))) {
+            _checkRole(role, _msgSender());
+        }
+        _;
+    }
+
+    /**
+     * @dev Contract might receive/hold ETH as part of the maintenance process.
+     */
+    receive() external payable {}
+
+    /**
+     * @dev Returns whether an id correspond to a registered operation. This
+     * includes both Pending, Ready and Done operations.
+     */
+    function isOperation(bytes32 id) public view virtual returns (bool pending) {
+        return getTimestamp(id) > 0;
+    }
+
+    /**
+     * @dev Returns whether an operation is pending or not.
+     */
+    function isOperationPending(bytes32 id) public view virtual returns (bool pending) {
+        return getTimestamp(id) > _DONE_TIMESTAMP;
+    }
+
+    /**
+     * @dev Returns whether an operation is ready or not.
+     */
+    function isOperationReady(bytes32 id) public view virtual returns (bool ready) {
+        uint256 timestamp = getTimestamp(id);
+        return timestamp > _DONE_TIMESTAMP && timestamp <= block.timestamp;
+    }
+
+    /**
+     * @dev Returns whether an operation is done or not.
+     */
+    function isOperationDone(bytes32 id) public view virtual returns (bool done) {
+        return getTimestamp(id) == _DONE_TIMESTAMP;
+    }
+
+    /**
+     * @dev Returns the timestamp at with an operation becomes ready (0 for
+     * unset operations, 1 for done operations).
+     */
+    function getTimestamp(bytes32 id) public view virtual returns (uint256 timestamp) {
+        return _timestamps[id];
+    }
+
+    /**
+     * @dev Returns the minimum delay for an operation to become valid.
+     *
+     * This value can be changed by executing an operation that calls `updateDelay`.
+     */
+    function getMinDelay() public view virtual returns (uint256 duration) {
+        return _minDelay;
+    }
+
+    /**
+     * @dev Returns the identifier of an operation containing a single
+     * transaction.
+     */
+    function hashOperation(
+        address target,
+        uint256 value,
+        bytes calldata data,
+        bytes32 predecessor,
+        bytes32 salt
+    ) public pure virtual returns (bytes32 hash) {
+        return keccak256(abi.encode(target, value, data, predecessor, salt));
+    }
+
+    /**
+     * @dev Returns the identifier of an operation containing a batch of
+     * transactions.
+     */
+    function hashOperationBatch(
+        address[] calldata targets,
+        uint256[] calldata values,
+        bytes[] calldata datas,
+        bytes32 predecessor,
+        bytes32 salt
+    ) public pure virtual returns (bytes32 hash) {
+        return keccak256(abi.encode(targets, values, datas, predecessor, salt));
+    }
+
+    /**
+     * @dev Schedule an operation containing a single transaction.
+     *
+     * Emits a {CallScheduled} event.
+     *
+     * Requirements:
+     *
+     * - the caller must have the 'proposer' role.
+     */
+    function schedule(
+        address target,
+        uint256 value,
+        bytes calldata data,
+        bytes32 predecessor,
+        bytes32 salt,
+        uint256 delay
+    ) public virtual onlyRole(PROPOSER_ROLE) {
+        bytes32 id = hashOperation(target, value, data, predecessor, salt);
+        _schedule(id, delay);
+        emit CallScheduled(id, 0, target, value, data, predecessor, delay);
+    }
+
+    /**
+     * @dev Schedule an operation containing a batch of transactions.
+     *
+     * Emits one {CallScheduled} event per transaction in the batch.
+     *
+     * Requirements:
+     *
+     * - the caller must have the 'proposer' role.
+     */
+    function scheduleBatch(
+        address[] calldata targets,
+        uint256[] calldata values,
+        bytes[] calldata datas,
+        bytes32 predecessor,
+        bytes32 salt,
+        uint256 delay
+    ) public virtual onlyRole(PROPOSER_ROLE) {
+        require(targets.length == values.length, "TimelockController: length mismatch");
+        require(targets.length == datas.length, "TimelockController: length mismatch");
+
+        bytes32 id = hashOperationBatch(targets, values, datas, predecessor, salt);
+        _schedule(id, delay);
+        for (uint256 i = 0; i < targets.length; ++i) {
+            emit CallScheduled(id, i, targets[i], values[i], datas[i], predecessor, delay);
+        }
+    }
+
+    /**
+     * @dev Schedule an operation that is to becomes valid after a given delay.
+     */
+    function _schedule(bytes32 id, uint256 delay) private {
+        require(!isOperation(id), "TimelockController: operation already scheduled");
+        require(delay >= getMinDelay(), "TimelockController: insufficient delay");
+        _timestamps[id] = block.timestamp + delay;
+    }
+
+    /**
+     * @dev Cancel an operation.
+     *
+     * Requirements:
+     *
+     * - the caller must have the 'proposer' role.
+     */
+    function cancel(bytes32 id) public virtual onlyRole(PROPOSER_ROLE) {
+        require(isOperationPending(id), "TimelockController: operation cannot be cancelled");
+        delete _timestamps[id];
+
+        emit Cancelled(id);
+    }
+
+    /**
+     * @dev Execute an (ready) operation containing a single transaction.
+     *
+     * Emits a {CallExecuted} event.
+     *
+     * Requirements:
+     *
+     * - the caller must have the 'executor' role.
+     */
+    function execute(
+        address target,
+        uint256 value,
+        bytes calldata data,
+        bytes32 predecessor,
+        bytes32 salt
+    ) public payable virtual onlyRoleOrOpenRole(EXECUTOR_ROLE) {
+        bytes32 id = hashOperation(target, value, data, predecessor, salt);
+        _beforeCall(id, predecessor);
+        _call(id, 0, target, value, data);
+        _afterCall(id);
+    }
+
+    /**
+     * @dev Execute an (ready) operation containing a batch of transactions.
+     *
+     * Emits one {CallExecuted} event per transaction in the batch.
+     *
+     * Requirements:
+     *
+     * - the caller must have the 'executor' role.
+     */
+    function executeBatch(
+        address[] calldata targets,
+        uint256[] calldata values,
+        bytes[] calldata datas,
+        bytes32 predecessor,
+        bytes32 salt
+    ) public payable virtual onlyRoleOrOpenRole(EXECUTOR_ROLE) {
+        require(targets.length == values.length, "TimelockController: length mismatch");
+        require(targets.length == datas.length, "TimelockController: length mismatch");
+
+        bytes32 id = hashOperationBatch(targets, values, datas, predecessor, salt);
+        _beforeCall(id, predecessor);
+        for (uint256 i = 0; i < targets.length; ++i) {
+            _call(id, i, targets[i], values[i], datas[i]);
+        }
+        _afterCall(id);
+    }
+
+    /**
+     * @dev Checks before execution of an operation's calls.
+     */
+    function _beforeCall(bytes32 id, bytes32 predecessor) private view {
+        require(isOperationReady(id), "TimelockController: operation is not ready");
+        require(predecessor == bytes32(0) || isOperationDone(predecessor), "TimelockController: missing dependency");
+    }
+
+    /**
+     * @dev Checks after execution of an operation's calls.
+     */
+    function _afterCall(bytes32 id) private {
+        require(isOperationReady(id), "TimelockController: operation is not ready");
+        _timestamps[id] = _DONE_TIMESTAMP;
+    }
+
+    /**
+     * @dev Execute an operation's call.
+     *
+     * Emits a {CallExecuted} event.
+     */
+    function _call(
+        bytes32 id,
+        uint256 index,
+        address target,
+        uint256 value,
+        bytes calldata data
+    ) private {
+        (bool success, ) = target.call{value: value}(data);
+        require(success, "TimelockController: underlying transaction reverted");
+
+        emit CallExecuted(id, index, target, value, data);
+    }
+
+    /**
+     * @dev Changes the minimum timelock duration for future operations.
+     *
+     * Emits a {MinDelayChange} event.
+     *
+     * Requirements:
+     *
+     * - the caller must be the timelock itself. This can only be achieved by scheduling and later executing
+     * an operation where the timelock is the target and the data is the ABI-encoded call to this function.
+     */
+    function updateDelay(uint256 newDelay) external virtual {
+        require(msg.sender == address(this), "TimelockController: caller must be timelock");
+        emit MinDelayChange(_minDelay, newDelay);
+        _minDelay = newDelay;
+    }
+}
+
+
 /** 
  *  SourceUnit: /Users/brianpc/workplace/contracts/tokens/core/TokenBase.sol
 */
@@ -1609,12 +1707,10 @@ pragma solidity 0.8.9;
 ////import "../eip20/BEP20.sol";
 ////import "../utils/AccessControl.sol";
 ////import "../utils/ReentrancyGuard.sol";
-////import "../utils/SafeMath.sol";
 ////import "../eip20/SafeBEP20.sol";
 
-contract TokenBase is BEP20, AccessControl, ReentrancyGuard {
+contract TokenBase is BEP20, TimelockController, ReentrancyGuard {
     using SafeBEP20 for BEP20;
-    using SafeMath for uint256;
 
     struct VestingType {
         string vestingName;
@@ -1638,93 +1734,73 @@ contract TokenBase is BEP20, AccessControl, ReentrancyGuard {
 
     mapping(uint256 => VestingType) private _vestingTypes;
     mapping(uint256 => uint256) private _projectSupplys;
+    mapping(uint256 => uint256) private _claimed;
     mapping(address => mapping(uint256 => VestingInfo)) private _vestingList;
+    mapping(uint256 => bool) private _isAddedVestingType;
 
-    modifier onlyAdmin() {
-        require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "ADMIN role required");
+
+    uint256 private maxVestingType;
+
+    modifier selfExecute {
+        require(_msgSender() == address(this), "Caller must be timelock");
         _;
     }
 
-    constructor(address multiSigAccount, string memory name, string memory symbol) BEP20(name, symbol) {
-        renounceRole(DEFAULT_ADMIN_ROLE, _msgSender());
-        _setupRole(DEFAULT_ADMIN_ROLE, multiSigAccount);
+    constructor(
+        address[] memory proposers,
+        address[] memory executors,
+        uint256 minDelay,
+        uint256 totalVestingType, 
+        string memory name, 
+        string memory symbol
+    ) BEP20(name, symbol) TimelockController(minDelay, proposers, executors) {
+        renounceRole(TIMELOCK_ADMIN_ROLE, _msgSender());
+
+        maxVestingType = totalVestingType;
     }
 
     function getName(uint256 vestingType) public view returns (string memory) {
         return _vestingTypes[vestingType].vestingName;
     }
-    function setName(uint256 vestingType, string memory vestingName) public onlyAdmin {
-        _vestingTypes[vestingType].vestingName = vestingName;
-    }
 
     function getTokenPrice(uint256 vestingType) public view returns (uint256) {
         return _vestingTypes[vestingType].tokenPrice;
-    }
-    function setTokenPrice(uint256 vestingType, uint256 tokenPrice) public onlyAdmin {
-        _vestingTypes[vestingType].tokenPrice = tokenPrice;
     }
 
     function getAllocation(uint256 vestingType) public view returns (uint256) {
         return _vestingTypes[vestingType].allocation;
     }
-    function setAllocation(uint256 vestingType, uint256 allocation) public onlyAdmin {
-        _vestingTypes[vestingType].allocation = allocation;
-    }
 
     function getTgePercent(uint256 vestingType) public view returns (uint256) {
         return _vestingTypes[vestingType].tgePercent;
-    }
-    function setTgePercent(uint256 vestingType, uint256 tgePercent) public onlyAdmin {
-        _vestingTypes[vestingType].tgePercent = tgePercent;
     }
 
     function getStartTimeVesting(uint256 vestingType) public view returns (uint256) {
         return _vestingTypes[vestingType].startTimeVesting;
     }
-    function setStartTimeVesting(uint256 vestingType, uint256 startTimeVesting) public onlyAdmin {
-        _vestingTypes[vestingType].startTimeVesting = startTimeVesting;
-    }
 
     function getStartTimeCliff(uint256 vestingType) public view returns (uint256) {
         return _vestingTypes[vestingType].startTimeCliff;
-    }
-    function setStartTimeCliff(uint256 vestingType, uint256 startTimeCliff) public onlyAdmin {
-        _vestingTypes[vestingType].startTimeCliff = startTimeCliff;
     }
 
     function getReleaseRound(uint256 vestingType) public view returns (uint256) {
         return _vestingTypes[vestingType].releaseRounds;
     }
-    function setReleaseRounds(uint256 vestingType, uint256 releaseRounds) public onlyAdmin {
-        _vestingTypes[vestingType].releaseRounds = releaseRounds;
-    }
 
     function getDaysPerRound(uint256 vestingType) public view returns (uint256) {
         return _vestingTypes[vestingType].daysPerRound;
-    }
-    function setDaysPerRound(uint256 vestingType, uint256 daysPerRound) public onlyAdmin {
-        _vestingTypes[vestingType].daysPerRound = daysPerRound;
     }
 
     function getCliff(uint256 vestingType) public view returns (uint256) {
         return _vestingTypes[vestingType].cliff;
     }
-    function setCliff(uint256 vestingType, uint256 cliff) public onlyAdmin {
-        _vestingTypes[vestingType].cliff = cliff;
-    }
 
     function getDaysPerCliff(uint256 vestingType) public view returns (uint256) {
         return _vestingTypes[vestingType].daysPerCliff;
     }
-    function setDaysPerCliff(uint256 vestingType, uint256 daysPerCliff) public onlyAdmin {
-        _vestingTypes[vestingType].daysPerCliff = daysPerCliff;
-    }
 
     function getArbitrary(uint256 vestingType) public view returns (bool) {
         return _vestingTypes[vestingType].arbitrary;
-    }
-    function setArbitrary(uint256 vestingType, bool arbitrary) public onlyAdmin {
-        _vestingTypes[vestingType].arbitrary = arbitrary;
     }
 
     function addVestingType(
@@ -1740,7 +1816,10 @@ contract TokenBase is BEP20, AccessControl, ReentrancyGuard {
         uint256 cliff,
         uint256 daysPerCliff,
         bool arbitrary
-    ) public onlyAdmin {
+    ) public selfExecute {
+        require(!_isAddedVestingType[vestingType], "Vesting is already added");
+        require(vestingType > 0 && vestingType <= maxVestingType, "Invalid vesting type");
+
         _vestingTypes[vestingType].vestingName = vestingName;
         _vestingTypes[vestingType].tokenPrice = tokenPrice;
         _vestingTypes[vestingType].allocation = allocation;
@@ -1752,13 +1831,15 @@ contract TokenBase is BEP20, AccessControl, ReentrancyGuard {
         _vestingTypes[vestingType].cliff = cliff;
         _vestingTypes[vestingType].daysPerCliff = daysPerCliff;
         _vestingTypes[vestingType].arbitrary = arbitrary;
+
+        _isAddedVestingType[vestingType] = true;
     }
 
     function addVestingTokenWithFund(
         address beneficiary,
         uint256 fund,
         uint256 vestingType
-    ) external onlyAdmin {
+    ) external selfExecute {
         require(fund > 0, "Fund must be greater than 0");
         VestingType memory vestingTypeInfo = _vestingTypes[vestingType];
         require(vestingTypeInfo.startTimeVesting > 0, "No vesting time");
@@ -1767,10 +1848,10 @@ contract TokenBase is BEP20, AccessControl, ReentrancyGuard {
         uint256 tgeClaimed = 0;
 
         if(vestingTypeInfo.tokenPrice > 0) {
-            amount = fund.mul(10000).div(vestingTypeInfo.tokenPrice);
+            amount = fund * 10000 / vestingTypeInfo.tokenPrice;
         }
         if(vestingTypeInfo.tgePercent > 0) {
-            tgeClaimed = amount.mul(vestingTypeInfo.tgePercent).div(10000);
+            tgeClaimed = amount * vestingTypeInfo.tgePercent / 10000;
         }
 
         _addVestingToken(beneficiary, amount, tgeClaimed, vestingType);
@@ -1779,7 +1860,7 @@ contract TokenBase is BEP20, AccessControl, ReentrancyGuard {
     function addVestingToken(
         address beneficiary,
         uint256 vestingType
-    ) external onlyAdmin {
+    ) external selfExecute {
         VestingType memory vestingTypeInfo = _vestingTypes[vestingType];
         require(vestingTypeInfo.startTimeVesting > 0, "No vesting time");
 
@@ -1787,7 +1868,7 @@ contract TokenBase is BEP20, AccessControl, ReentrancyGuard {
         uint256 tgeClaimed = 0;
 
         if(vestingTypeInfo.tgePercent > 0) {
-            tgeClaimed = amount.mul(vestingTypeInfo.tgePercent).div(10000);
+            tgeClaimed = amount * vestingTypeInfo.tgePercent / 10000;
         }
 
         _addVestingToken(beneficiary, amount, tgeClaimed, vestingType);
@@ -1812,23 +1893,25 @@ contract TokenBase is BEP20, AccessControl, ReentrancyGuard {
         _vestingList[beneficiary][vestingType] = info;
         
         if(tgeClaimed > 0) {
+            _claimed[vestingType] = _claimed[vestingType] + tgeClaimed;
             _mint(beneficiary, tgeClaimed);
         }
         
-        _projectSupplys[vestingType] = _projectSupplys[vestingType].add(amount);
+        _projectSupplys[vestingType] = _projectSupplys[vestingType] + amount;
     }
 
-    function revokeVestingToken(address user, uint256 vestingType) external onlyAdmin {
+    function revokeVestingToken(address user, uint256 vestingType) external selfExecute {
         require(_vestingList[user][vestingType].isActive, "Invalid beneficiary");
 
         uint256 claimableAmount = _getVestingClaimableAmount(user, vestingType);
         _vestingList[user][vestingType].isActive = false;
 
         if (claimableAmount > 0) {
-            require(totalSupply() + claimableAmount <= _vestingTypes[vestingType].allocation, "Max supply exceeded");
+            require(_claimed[vestingType] + claimableAmount <= _vestingTypes[vestingType].allocation, "Max supply exceeded");
+            _claimed[vestingType] = _claimed[vestingType] + claimableAmount;
             _mint(user, claimableAmount);
-            _vestingList[user][vestingType].claimedAmount = _vestingList[user][vestingType].claimedAmount.add(claimableAmount);
-            _projectSupplys[vestingType] = _projectSupplys[vestingType].sub(_vestingList[user][vestingType].amount.sub(_vestingList[user][vestingType].claimedAmount));
+            _vestingList[user][vestingType].claimedAmount = _vestingList[user][vestingType].claimedAmount + claimableAmount;
+            _projectSupplys[vestingType] = _projectSupplys[vestingType] - _vestingList[user][vestingType].amount + _vestingList[user][vestingType].claimedAmount;
         }
     }
 
@@ -1850,30 +1933,30 @@ contract TokenBase is BEP20, AccessControl, ReentrancyGuard {
         VestingType memory vestingTypeInfo = _vestingTypes[vestingType];
         VestingInfo memory info = _vestingList[user][vestingType];
 
-        if (!_vestingList[user][vestingType].isActive) return 0;
+        if (!info.isActive) return 0;
         if (block.timestamp < vestingTypeInfo.startTimeVesting) return 0;
 
         claimableAmount = 0;
         
         uint256 roundReleasedAmount = 0;
         uint256 tgeReleasedAmount = 0;
-        uint256 releaseTime = vestingTypeInfo.startTimeCliff.add(vestingTypeInfo.cliff.mul(vestingTypeInfo.daysPerCliff).mul(1 days));
+        uint256 releaseTime = vestingTypeInfo.startTimeCliff + vestingTypeInfo.cliff * vestingTypeInfo.daysPerCliff * 1 days;
 
         if(vestingTypeInfo.tgePercent > 0) {
-            tgeReleasedAmount = info.amount.mul(vestingTypeInfo.tgePercent).div(10000);
+            tgeReleasedAmount = info.amount * vestingTypeInfo.tgePercent / 10000;
         }
 
         if (block.timestamp >= releaseTime) {
             if(vestingTypeInfo.arbitrary) {
-                roundReleasedAmount = info.amount.sub(tgeReleasedAmount);
+                roundReleasedAmount = info.amount - tgeReleasedAmount;
             }
             else {
                 roundReleasedAmount = _calculateLinearReleaseAmount(releaseTime, tgeReleasedAmount, vestingTypeInfo, info);
             }
         }
 
-        if (roundReleasedAmount > info.claimedAmount.sub(tgeReleasedAmount)) {
-            claimableAmount = roundReleasedAmount.sub(info.claimedAmount.sub(tgeReleasedAmount));
+        if (roundReleasedAmount > info.claimedAmount - tgeReleasedAmount) {
+            claimableAmount = roundReleasedAmount - info.claimedAmount + tgeReleasedAmount;
         }
     }
 
@@ -1884,12 +1967,12 @@ contract TokenBase is BEP20, AccessControl, ReentrancyGuard {
         VestingInfo memory info
     ) internal view returns (uint256 roundReleasedAmount) {
         roundReleasedAmount = 0;
-        uint256 roundsPassed = ((block.timestamp.sub(releaseTime)).div(vestingTypeInfo.daysPerRound.mul(1 days))).add(1);
+        uint256 roundsPassed = (block.timestamp - releaseTime) / (vestingTypeInfo.daysPerRound * 1 days) + 1;
 
         if (roundsPassed >= vestingTypeInfo.releaseRounds) {
-            roundReleasedAmount = info.amount.sub(tgeReleasedAmount);
+            roundReleasedAmount = info.amount - tgeReleasedAmount;
         } else {
-            roundReleasedAmount = (info.amount.sub(tgeReleasedAmount)).mul(roundsPassed).div(vestingTypeInfo.releaseRounds);
+            roundReleasedAmount = (info.amount - tgeReleasedAmount) * roundsPassed / vestingTypeInfo.releaseRounds;
         }
     }
 
@@ -1904,17 +1987,14 @@ contract TokenBase is BEP20, AccessControl, ReentrancyGuard {
      */
     function claimVestingToken(uint256 vestingType, uint256 claimPercent) external nonReentrant returns (uint256) {
         require(_vestingList[_msgSender()][vestingType].isActive, "Not in vesting list");
-        uint256 claimableAmount = _getVestingClaimableAmount(_msgSender(), vestingType).mul(claimPercent).div(10000);
+        uint256 claimableAmount = _getVestingClaimableAmount(_msgSender(), vestingType) * claimPercent / 10000;
         require(claimableAmount > 0, "Nothing to claim");
-        require(totalSupply() + claimableAmount <= _vestingTypes[vestingType].allocation, "Max supply exceeded");
+        require(_claimed[vestingType] + claimableAmount <= _vestingTypes[vestingType].allocation, "Max supply exceeded");
 
-        _vestingList[_msgSender()][vestingType].claimedAmount = _vestingList[_msgSender()][vestingType].claimedAmount.add(claimableAmount);
+        _vestingList[_msgSender()][vestingType].claimedAmount = _vestingList[_msgSender()][vestingType].claimedAmount + claimableAmount;
+        _claimed[vestingType] = _claimed[vestingType] + claimableAmount;
         _mint(_msgSender(), claimableAmount);
 
         return claimableAmount;
-    }
-
-    receive() external payable {
-        revert();
     }
 }
