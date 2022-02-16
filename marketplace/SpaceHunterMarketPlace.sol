@@ -2323,7 +2323,11 @@ contract MarketPlaceCore is
 
     mapping(uint256 => Listing) private listings;
 
-    event NewListing(address seller, address paymentToken, address listingNft, uint256 price, uint256 listingTime);
+    address public tokenExchange;
+    uint256 public sellerFeeForTokenExchange;
+    uint256 public buyerFeeForTokenExchange;
+
+    event NewListing(address seller, address paymentToken, address listingNft, uint256 id, uint256 price, uint256 listingTime);
     event ListingPriceChange(address seller, uint256 tokenId, uint256 price);
     event CancelledListing(address seller, uint256 tokenId);
     event PurchaseListing(address buyer, address seller, address listingNft, address paymentToken, uint256 tokenId, uint256 price);
@@ -2377,6 +2381,18 @@ contract MarketPlaceCore is
         maintenanceMode = mode;
     }
 
+    function setTokenExchange(address _tokenExchange) public virtual selfExecute {
+        tokenExchange = _tokenExchange;
+    }
+
+    function setSellerFeeForTokenExchange(uint256 _sellerFeeForTokenExchange) public virtual selfExecute {
+        sellerFeeForTokenExchange = _sellerFeeForTokenExchange;
+    }
+
+    function setBuyerFeeForTokenExchange(uint256 _buyerFeeForTokenExchange) public virtual selfExecute {
+        buyerFeeForTokenExchange = _buyerFeeForTokenExchange;
+    }
+
     function getSellerOfNftID(address nft, uint256 tokenId) public virtual view returns (address) {
         uint256 identifier = uint256(uint160(nft)) + tokenId;
 
@@ -2400,8 +2416,6 @@ contract MarketPlaceCore is
     {
         require (maintenanceMode == false, "Market is in maintenance mode");
         //require(price >= minimumPrice, "The price should be over than minimum price");
-
-        uint256 transferAmount = executeFundsTransfer(paymentToken, address(0), _msgSender(), price);
         
         transferNft(listingNft, _msgSender(), address(this), id);
 
@@ -2409,7 +2423,7 @@ contract MarketPlaceCore is
         listings[identifier] = Listing(_msgSender(), paymentToken, listingNft, price, block.timestamp);
         listedTokenIDs.add(identifier);
 
-        emit NewListing(_msgSender(), paymentToken, listingNft, transferAmount, block.timestamp);
+         emit NewListing(_msgSender(), paymentToken, listingNft, id, price, block.timestamp);
     }
 
     function cancelListing(address nft, uint256 id)
@@ -2472,33 +2486,28 @@ contract MarketPlaceCore is
 
         require(price > 0, "Price must be greater than 0");
 
-        uint256 requireAmount;
+        uint256 buyerFeeAmount = paymentToken == tokenExchange ? 
+            price * buyerFeeForTokenExchange / 100 : price * buyerFee / 100;
+        uint256 sellerFeeAmount = paymentToken == tokenExchange ? 
+            price * sellerFeeForTokenExchange / 100 : price * sellerFee / 100;
+
+        uint256 requireBuyerAmount = price + buyerFeeAmount;
 
         if(buyer == address(0)){ // Listing NFT to marketplace
-            requireAmount = price *sellerFee / 100;
+            uint256 balance = IERC20Upgradeable(paymentToken).balanceOf(buyer);
+            require(balance >= requireBuyerAmount, "Not enought coin");
 
-            if (paymentToken != address(0)) {
-                transferTokens(paymentToken, seller, feeRecipient, requireAmount); 
-            } else {
-                require(msg.value >= requireAmount, "Not enought coin");
-                payable(feeRecipient).transfer(requireAmount);
-            }
+            transferTokens(paymentToken, buyer, feeRecipient, buyerFeeAmount + sellerFeeAmount);
+            transferTokens(paymentToken, buyer, seller, price - sellerFeeAmount);
         } else { // Buyer make an order
-            requireAmount = price * (buyerFee + 100) / 100;
-
-            if (paymentToken != address(0)) {
-                uint256 balance = IERC20Upgradeable(paymentToken).balanceOf(buyer);
-                require(balance >= requireAmount, "Not enought coin");
-                transferTokens(paymentToken, buyer, feeRecipient, requireAmount - price);
-                transferTokens(paymentToken, buyer, seller, price);
-            } else {
-                require(msg.value >= requireAmount, "Not enought coin");
-                payable(feeRecipient).transfer(requireAmount - price);
-                payable(seller).transfer(price);
+            require(msg.value >= requireBuyerAmount, "Not enought coin");
+            if(feeRecipient != address(this)) {
+                payable(feeRecipient).transfer(buyerFeeAmount + sellerFeeAmount);
             }
+            payable(seller).transfer(price - sellerFeeAmount);
         }
 
-        return requireAmount;
+        return requireBuyerAmount;
     }
 
     /**
